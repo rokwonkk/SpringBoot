@@ -44,6 +44,8 @@
         </encoder>
     </appender>
 
+    <!-- 파일로 저장되는 로그는 없도록 설정 -->
+    <!--
     <appender name="console" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class = "ch.qos.logback.classic.filter.ThresholdFilter">
             <level>
@@ -66,17 +68,19 @@
             </pattern>
         </encoder>
     </appender>
-
+    -->
     <!-- TRACE > DEBUG > INFO > WARN > ERROR > OFF -->
     <!-- Root Logger -->
+    <!--
     <root level="INFO">
         <appender-ref ref="console"/>
         <appender-ref ref="INFO_LOG"/>
     </root>
-
+    -->
     <!-- Name Logger -->
-    <logger name="com.springboot.api.controller" level="DEBUG" additivity="false">
+    <logger name="com.springboot.api.controller" level="DEBUG" additivity="true">
         <appender-ref ref="console"/>
-        <appender-ref ref="INFO_LOG"/>
+        <!-- 콘솔 확인으로 인한 주석처리 -->
+        <!--<appender-ref ref="INFO_LOG"/>-->
     </logger>
 </configuration>

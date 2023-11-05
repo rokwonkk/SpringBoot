@@ -1,6 +1,7 @@
 package com.springboot.api.controller;
 
 import com.springboot.api.dto.MemberDto;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -16,6 +17,7 @@ public class PutController {
 
     //http://localhost:8080/api/v1/put-api/member
     @PutMapping(value = "/member")
+    @Operation(summary = "@RequestBody를 이용한 PUT메서드",description = "Map을 이용함 ", tags = {"03.PUT", })
     public String postMember(@RequestBody Map<String, Object> putData){
         StringBuilder sb = new StringBuilder();
 
@@ -35,6 +37,7 @@ public class PutController {
      */
     //http://localhost:8080/api/v1/put-api/member1
     @PutMapping(value = "/member1")
+    @Operation(summary = "@RequestBody를 이용한 PUT메서드",description = "DTO를 이용해 String으로 반환 ", tags = {"03.PUT", })
     public String postMemberDto(@RequestBody MemberDto memberDto){
         return memberDto.toString();
     }
@@ -46,6 +49,7 @@ public class PutController {
      */
     //http://localhost:8080/api/v1/put-api/member2
     @PutMapping(value = "/member2")
+    @Operation(summary = "@RequestBody를 이용한 PUT메서드",description = "DTO를 이용해 DTO를 반환 ", tags = {"03.PUT", })
     public MemberDto postMemberDto2(@RequestBody MemberDto memberDto){
         return memberDto;
     }
@@ -58,6 +62,7 @@ public class PutController {
      */
     //http://localhost:8080/api/v1/put-api/member3
     @PutMapping(value = "/member3")
+    @Operation(summary = "ResponseEntity 이용한 PUT메서드",description = "header와 Body를 쉽게 구성", tags = {"03.PUT", })
     public ResponseEntity<MemberDto> postMemberDto3(@RequestBody MemberDto memberDto){
         return ResponseEntity
                 .status(HttpStatus.ACCEPTED)

@@ -12,28 +12,29 @@ public class GetController {
 
     //http://localhost:8080/api/v1/get-api
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
-    @Operation(summary = "그냥 조회",description = "그냥 조회를 해본다.", tags = {"01.GET", })
+    @Operation(summary = "@RequestMapping 구현",description = "@RequestMapping String 조회", tags = {"01.GET", })
     public String getHello(){
         return "Hello World";
     }
 
     //http://localhost:8080/api/v1/get-api/name
     @RequestMapping(value = "/name")
-    @Operation(summary = "그냥 두번째 조회",description = "그냥 두번째를 조회를 해본다.", tags = {"01.GET", })
+    @Operation(summary = "매개변수가 없는 GET 메서드",description = "정해진 Flature 응답", tags = {"01.GET", })
     public String getName(){
         return "Flature";
     }
 
     //http://localhost:8080/api/v1/get-api/variable1/{String 값}
     @RequestMapping(value = "/variable1/{variable}")
-    @Operation(summary = "그냥 세번째 조회",description = "그냥 세번째를 조회를 해본다.", tags = {"01.GET", })
+    @Operation(summary = "@PathVariable로 GET 메서드",description = "URL 자체에 값을 담아 요청 처리", tags = {"01.GET", })
     public String getvaliable1(@PathVariable String variable){
         return variable;
     }
 
     //http://localhost:8080/api/v1/get-api/variable2/{String 값}
-    @RequestMapping(value = "/variable2/{variable}")
-    @Operation(summary = "그냥 네번째 조회",description = "그냥 네번째를 조회를 해본다.", tags = {"01.GET", })
+    @GetMapping(value = "/variable2/{variable}")
+    @Operation(summary = "@GetMapping으로 GET 메서드",description = "변수 이름을 정의하면 매개변수와 매핑 가능", tags = {"01.GET", })
+    //public String getvaliable2(@PathVariable(value = "variable") String var){ 풀어서 쓴다면 이것과 같다.
     public String getvaliable2(@PathVariable("variable") String var){
         return var;
     }

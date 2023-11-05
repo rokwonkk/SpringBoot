@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOG_PATH" value="./logs"/>
+
+    <!-- Appenders -->
+    <!--
+        appender의 대표적인 구현체
+        ConsoleAppender     -> 콘솔에 출력
+        FileAppender        -> 파일로 저장
+        RollingFileAppender -> 파일 순회하며 저장
+        SMTPAppender        -> 메일로 전송
+        DBAppender          -> DB에 저장
+     -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class = "ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>
+                INFO
+            </level>
+        </filter>
+        <!--
+            encoder요소를 통한 로그의 표현 형식 -> pattern
+            대표적인 패턴
+            %Logger{length} -> 로거의 이름
+            %-5level        -> 로그 레벨. -5는 출력 고정폭의 값
+            %msg(%message)  -> 로그 메세지
+            %d              -> 로그 기록 시간
+            %p              -> 로깅 레벨
+            %F              -> 로깅이 발생한 애플리케이션 파일명
+            %M              -> 로깅이 발생한 메서드 이름
+            %I              -> 로깅이 발생한 호출지의 정보
+            %thread         -> 현재 스레드명
+            %t              -> 로깅이 발생한 스레드명
+            %c              -> 로깅이 발생한 카테고리
+            %C              -> 로깅이 발생한 클래스명
+            %m              -> 로그 메시지
+            %n              -> 줄바꿈
+            %r              -> 애플리케이션 실행 후 로깅이 발생한 시점까지의 시간
+            %L              -> 로깅이 발생한 호출 지점의 라인 수
+         -->
+        <encoder>
+            <pattern>
+                [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] [%thread] %logger %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="console" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class = "ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>
+                INFO
+            </level>
+            <file>
+                ${LOG_PATH}/info.log
+            </file>
+            <append>true</append>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>
+                    ${LOG_PATH}/info_${type}.%d{yyyy-MM-dd}.gz
+                </fileNamePattern>
+                <maxHistory>30</maxHistory>
+            </rollingPolicy>
+        </filter>
+        <encoder>
+            <pattern>
+                [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] [%thread] %logger %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- TRACE > DEBUG > INFO > WARN > ERROR > OFF -->
+    <!-- Root Logger -->
+    <root level="INFO">
+        <appender-ref ref="console"/>
+        <appender-ref ref="INFO_LOG"/>
+    </root>
+
+    <!-- Name Logger -->
+    <logger name="com.springboot.api.controller" level="DEBUG" additivity="false">
+        <appender-ref ref="console"/>
+        <appender-ref ref="INFO_LOG"/>
+    </logger>
+</configuration>

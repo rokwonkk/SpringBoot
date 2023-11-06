@@ -1,12 +1,12 @@
 package com.springboot.jpa.data.dto;
 
+import com.springboot.jpa.data.entity.Product;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class ProductResponseDto {
 
     private Long number;
@@ -14,6 +14,9 @@ public class ProductResponseDto {
     private int price;
     private int stock;
 
+    public ProductResponseDto() {
+
+    }
     public ProductResponseDto(Long number, String name, int price, int stock) {
         this.number = number;
         this.name = name;

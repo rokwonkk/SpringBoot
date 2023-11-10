@@ -1,11 +1,13 @@
 package com.springboot.test.data.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Builder
 @Schema(title = "물품 정보")
 public class ProductDto {
 
@@ -16,9 +18,4 @@ public class ProductDto {
     @Schema(description = "물품개수", example = "100")
     private int stock;
 
-    public ProductDto(String name, int price, int stock) {
-        this.name = name;
-        this.price = price;
-        this.stock = stock;
-    }
 }

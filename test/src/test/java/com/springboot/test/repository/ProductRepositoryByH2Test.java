@@ -9,7 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-public class ProductRepositoryTestByH2 {
+public class ProductRepositoryByH2Test {
 
     @Autowired
     private ProductRepository productRepository;
@@ -22,6 +22,7 @@ public class ProductRepositoryTestByH2 {
         product.setName("펜");
         product.setPrice(1000);
         product.setStock(1000);
+
         //when
         Product savedProduct = productRepository.save(product);
 

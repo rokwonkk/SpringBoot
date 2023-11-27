@@ -7,6 +7,7 @@ import com.springboot.advanced_jpa.data.entity.Product;
 import com.springboot.advanced_jpa.data.entity.QProduct;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,8 +27,13 @@ class ProductRepositoryTest {
     @Autowired
     ProductRepository productRepository;
 
+    @Autowired
+    JPAQueryFactory query;
+
     @PersistenceContext
     EntityManager em;
+
+
 
     @Test
     void sortingAndPagingTest(){
@@ -151,6 +157,26 @@ class ProductRepositoryTest {
             System.out.println("Product Name : " + tuple.get(qProduct.name));
             System.out.println("Product Name : " + tuple.get(qProduct.price));
             System.out.println("--------------------------------");
+        }
+    }
+
+    @Test
+    @DisplayName("JPAQueryFactory를 스프링 컨테이너에 등록해서 사용")
+    void queryDslTest4(){
+        QProduct qProduct = QProduct.product;
+        List<String> productList = query
+                .select(qProduct.name)
+                .from(qProduct)
+                .where(qProduct.name.eq("펜"))
+                .orderBy(qProduct.price.asc())
+                .fetch();
+
+        for (String s : productList) {
+
+            System.out.println("---------------------");
+            System.out.println("Product Name : " + s);
+            System.out.println("---------------------");
+
         }
     }
 }

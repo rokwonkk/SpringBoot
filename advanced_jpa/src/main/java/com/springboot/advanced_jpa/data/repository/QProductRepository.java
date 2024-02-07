@@ -8,10 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
-import org.springframework.data.repository.query.FluentQuery;
 
 import java.util.Optional;
-import java.util.function.Function;
 
 public interface QProductRepository extends JpaRepository<Product, Long>,
         QuerydslPredicateExecutor<Product> {
@@ -39,7 +37,4 @@ public interface QProductRepository extends JpaRepository<Product, Long>,
 
     @Override
     boolean exists(Predicate predicate);
-
-    @Override
-    <S extends Product, R> R findBy(Predicate predicate, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction);
 }

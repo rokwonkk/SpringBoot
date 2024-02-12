@@ -7,8 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 class ProductRepositoryTest {
 
@@ -25,5 +23,18 @@ class ProductRepositoryTest {
             System.out.println(product.getPrice());
             System.out.println(product.getStock());
         }
+    }
+
+    @Test
+    public void auditingTest(){
+        Product product = new Product();
+        product.setName("펜");
+        product.setPrice(1000);
+        product.setStock(100);
+
+        Product savedProduct = productRepository.save(product);
+
+        System.out.println("productName : " + savedProduct.getName());
+        System.out.println("craeatedAt : " + savedProduct.getCreatedAt());
     }
 }

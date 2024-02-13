@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 //JPA Auditing 활성화 - 데이터 생성 변경의 감시
 
 @SpringBootApplication
-@EnableJpaAuditing
+//@EnableJpaAuditing
 public class AdvancedJpaApplication {
 
 	public static void main(String[] args) {

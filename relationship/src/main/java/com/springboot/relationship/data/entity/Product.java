@@ -3,6 +3,9 @@ package com.springboot.relationship.data.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -39,4 +42,13 @@ public class Product extends BaseEntity{
     @ToString.Exclude
     private Provider provider;
 
+    //다대다 양방향 매핑
+
+    @ManyToMany
+    @ToString.Exclude
+    private List<Producer> producers = new ArrayList<>();
+
+    public void addProducer(Producer producer){
+        this.producers.add(producer);
+    }
 }

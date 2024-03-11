@@ -2,6 +2,7 @@ package com.springboot.relationship.data.repository;
 
 import com.springboot.relationship.data.entity.Product;
 import com.springboot.relationship.data.entity.Provider;
+import jakarta.transaction.Transactional;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,5 +102,32 @@ class ProviderRepositoryTest {
         product.setStock(stock);
 
         return product;
+    }
+
+    @Test
+    @Transactional
+    void orphanRemovalTest(){
+        Provider provider = savedProvider("새로운 래고공장");
+
+        Product product1 = savedProduct("래고5", 1000, 1000);
+        Product product2 = savedProduct("래고6", 500, 1500);
+        Product product3 = savedProduct("래고7", 750, 500);
+
+        product1.setProvider(provider);
+        product2.setProvider(provider);
+        product3.setProvider(provider);
+
+        provider.getProductList().addAll(Lists.newArrayList(product1, product2, product3));
+
+        providerRepository.saveAndFlush(provider);
+
+        providerRepository.findAll().forEach(System.out::println);
+        productRepository.findAll().forEach(System.out::println);
+
+        Provider foundProvider = providerRepository.findById(1L).get();
+        foundProvider.getProductList().remove(0);
+
+        providerRepository.findAll().forEach(System.out::println);
+        productRepository.findAll().forEach(System.out::println);
     }
 }

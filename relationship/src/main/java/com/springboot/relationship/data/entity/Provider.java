@@ -25,7 +25,8 @@ public class Provider extends BaseEntity{
     //@OneToMany(mappedBy = "provider", fetch = FetchType.EAGER)
 
     //다대일 속성을 활용한 영속성 전이 적용
-    @OneToMany(mappedBy = "provider", cascade = CascadeType.PERSIST)
+    //orphanRemoval = true 고아객체 제거 기능
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.PERSIST, orphanRemoval = true)
     @ToString.Exclude
     private List<Product> productList = new ArrayList<>();
 

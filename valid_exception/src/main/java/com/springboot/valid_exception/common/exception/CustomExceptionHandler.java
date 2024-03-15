@@ -30,4 +30,17 @@ public class CustomExceptionHandler {
 
         return new ResponseEntity<>(map, responseHeaders, httpStatus);
     }
+
+    @ExceptionHandler(value = CustomException.class)
+    public ResponseEntity<Map<String, String>> handleException(CustomException e, HttpServletRequest req){
+        HttpHeaders respnseHeaders = new HttpHeaders();
+        log.error("Advice 내 handleException 호출, {}, {}", req.getRequestURI(), e.getMessage());
+
+        Map<String, String> map = new HashMap<>();
+        map.put("error_type", e.getHttpStatusType());
+        map.put("code", Integer.toString(e.getHttpStatusCode()));
+        map.put("message", e.getMessage());
+
+        return new ResponseEntity<>(map, respnseHeaders, e.getHttpStatus());
+    }
 }

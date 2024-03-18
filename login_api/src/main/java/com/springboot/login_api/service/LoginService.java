@@ -1,11 +1,7 @@
 package com.springboot.login_api.service;
 
 import org.springframework.core.env.Environment;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -34,14 +30,36 @@ public class LoginService {
         
         JsonNode userResourceNode = getUserResource(accessToken, registrationId);
         System.out.println("userResourceNode = " + userResourceNode);
-        
-        String id = userResourceNode.get("id").asText();
-        String email = userResourceNode.get("email").asText();
-        String nickname = userResourceNode.get("name").asText();
-        System.out.println("id = " + id);
-        System.out.println("email = " + email);
-        System.out.println("nickname = " + nickname);
 
+        switch (registrationId) {
+            case "google" -> {
+                System.out.println("구글 로그인");
+
+                String id = userResourceNode.get("id").asText();
+                String email = userResourceNode.get("email").asText();
+
+                System.out.println("id = " + id);
+                System.out.println("email = " + email);
+            }
+            case "kakao" -> {
+                System.out.println("카카오 로그인");
+
+                String id = userResourceNode.get("id").asText();
+                String email = userResourceNode.get("kakao_account").get("email").asText();
+
+                System.out.println("id = " + id);
+                System.out.println("email = " + email);
+            }
+            case "naver" -> {
+                System.out.println("네이버 로그인");
+
+                String id = userResourceNode.get("response").get("id").asText();
+                String email = userResourceNode.get("response").get("email").asText();
+
+                System.out.println("id = " + id);
+                System.out.println("email = " + email);
+            }
+        }
 	}
 
     private String getAccessToken(String authorizationCode, String registrationId) {

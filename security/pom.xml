@@ -62,6 +62,15 @@
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
         </dependency>
+        <!-- 로그인 API에서 JWT이용할 경우에 javax.xml.bind.DatatypeConverter를 찾지 못하는 에러 -->
+        <!-- JDK 11 이 되면서 Java EE와 CORBA Module이 제거되었다고 한다 -->
+        <!-- base64Codec.java 파일이 javax.xml.bind.DatatypeConverter을 리턴하고 있었는데 여기서 에러가 발생함-->
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+        <!-- 의존성 참조를 하여 해결. -->
     </dependencies>
 
     <build>

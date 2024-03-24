@@ -1,10 +1,16 @@
 package com.springboot.security.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import io.swagger.v3.oas.annotations.security.SecuritySchemes;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.context.annotation.Configuration;
 
 @OpenAPIDefinition(
         info = @Info(title= "Spring Boot Open API Test with Swagger",
@@ -25,19 +31,17 @@ import io.swagger.v3.oas.annotations.tags.Tag;
                 @Tag(name = "03.PUT", description = "PUT 기능"),
                 @Tag(name = "04.DELETE", description = "DELETE 기능"),
                 @Tag(name = "05.Undefined", description = "미정의 기능")
-        }
+        },
+        security = { @SecurityRequirement(name = "X-Auth-Token"),}
 )
-//@Configuration
+@SecuritySchemes({
+        @SecurityScheme(name = "X-Auth-Token",
+                type = SecuritySchemeType.APIKEY,
+                description = "Api token",
+                in = SecuritySchemeIn.HEADER,
+                paramName = "X-Auth-Token"),
+})
+@Configuration
 public class SwaggerConfig {
-//    @Bean
-//    public GroupedOpenApi testSwaggerApi(){
-//        //String[] paths = {"/api/v1/**"};
-//        String[] paths = {""};
-//
-//        return GroupedOpenApi
-//                .builder()
-//                .group("TEST SWAGGER API v1")
-//                .pathsToMatch(paths)
-//                .build();
-//    }
+
 }

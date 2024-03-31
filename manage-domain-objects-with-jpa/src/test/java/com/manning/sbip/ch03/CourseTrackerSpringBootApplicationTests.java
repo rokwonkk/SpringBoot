@@ -1,6 +1,6 @@
 package com.manning.sbip.ch03;
 
-import com.manning.sbip.ch03.entity.Course;
+import com.manning.sbip.ch03.model.Course;
 import com.manning.sbip.ch03.repository.CourseRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

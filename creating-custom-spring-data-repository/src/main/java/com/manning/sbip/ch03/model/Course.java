@@ -1,15 +1,16 @@
-package com.manning.sbip.ch03.entity;
+package com.manning.sbip.ch03.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-@Table(name = "COURES")
+@Table(name = "COURSES")
 public class Course {
 
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Column(name = "NAME")
     private String name;
@@ -23,16 +24,8 @@ public class Course {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    public Course() {
-    }
+    public Course() {}
 
-    /**
-     * ID는 JPA에 의해 자동 생성되므로 생성자에는 id필드가 포함돼 있지 않다.
-     * @param name
-     * @param category
-     * @param rating
-     * @param description
-     */
     public Course(String name, String category, int rating, String description) {
         this.name = name;
         this.category = category;
@@ -40,11 +33,11 @@ public class Course {
         this.description = description;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -78,6 +71,20 @@ public class Course {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Course)) return false;
+        Course course = (Course) o;
+        return Objects.equals(name, course.name) &&
+                Objects.equals(category, course.category);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, category);
     }
 
     @Override

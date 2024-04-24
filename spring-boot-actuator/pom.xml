@@ -23,6 +23,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<!-- 액추에이터 의존 관계 추가 -->
+		<!-- spring-boot-starter-actuator에는 actuator-autoconfigure와 micrometer-core 의존 관계가 포함돼 있다. -->
+		<!-- actuator-autoconfigrure는 스프링 부트 액추에이터의 핵심 기능과 자동 구성 설정이 포함돼 있다. -->
+		<!-- micrometercore에는 다양한 측정지표를 수집할 수 있는 마이크로미터 지원 기능이 포함 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
